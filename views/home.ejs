@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> 
+            <%= title%>
+        </title>
+        <!-- included the fontawesome and stylesheets -->
+        <script  src="https://kit.fontawesome.com/b3348ae33f.js"
+      crossorigin="anonymous"
+  ></script>
+  <script src="https://kit.fontawesome.com/ba47d09c57.js" crossorigin="anonymous"></script>      
+   <link rel="stylesheet" href="/css/home.css">
+  
+    </head> 
+    <body>
+        <!-- main container for the format -->
+            <div class="container">
+                <h1 id="head">
+                    To Do List
+                </h1> 
+                <hr>
+                <!-- input form for taking the input  -->
+                <form id="input-form" action="/add-task" method="POST">
+                    <div class="description">
+                        <label for="description">Description</label> <br>
+                        <input type="text" name="description" placeholder="what do you need to do ?" required>
+                    </div>
+                    <br>
+                    <div id="category">
+                        <label for="category">Category</label>
+                        <select name="category">
+                            <option disabled selected value> Choose a category </option>
+                            <option value="Personal">Personal</option>
+                            <option value="Work">Work</option>
+                            <option value="School">School</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div id="date">
+                        <label for="dueDate">DUE DATE</label> <br>
+                        <input type="date" name="dueDate">
+                    </div>
+
+                   <!-- button for adding task -->
+                   <div id="button-container">
+                       <input type="submit" class="btn btn-outline-danger" value="ADD TASK">
+                        <i class="fa-solid fa-plus"></i>
+                   </div>
+
+                </form>
+
+              
+                <!-- for deleting the task form-->
+                 <div class="task-container">
+                    <form id="delete-form" action="/delete-task" method="POST">
+                        <!-- loop to traverse the tasks -->
+                        <% for (let i = 0; i < todo_list.length; i++){ %>
+                            <div class="task">
+                                <!-- code to display the info after the task is added -->
+                                <div class="checkbox">
+                                    <input type="checkbox" name= "tasks" class="item" value="<%= todo_list[i]._id %>" id="<%= 'tasks' + (i + 1) %>" >
+                                    <label for="<%= 'tasks' + (i + 1) %>">
+                                        <%= todo_list[i].description %>
+                                    </label>
+                                    <p class="date"> 
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        <%= todo_list[i].dueDate %>
+                                    </p>
+
+                                    <% if(todo_list[i].category != undefined) { %>
+                                        <span class="category"> <%= todo_list[i].category %> </span>
+                                        <% } %>
+                                        <br>
+                                </div>
+                            </div>
+                         <%}%>   
+                         <!-- delete button -->
+                         <input type="submit" id="button-container" value=" DELETE TASKS">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </form>
+                </div>
+
+            </div>  
+          
+    </body>
+</html>
